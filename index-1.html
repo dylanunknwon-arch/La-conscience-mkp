@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="LA CONSCIENCE MKP – école secondaire, Commune Annexe, quartier Kashamata. Site de démonstration.">
+<meta name="theme-color" content="#102B55">
+<title>LA CONSCIENCE MKP – École secondaire</title>
+
+<!--
+=====================================================================
+  SITE DE DÉMONSTRATION – LA CONSCIENCE MKP
+  Seules les informations fournies sont affichées.
+  Tout ce qui manque apparaît comme « Informations à compléter ».
+
+  OÙ MODIFIER ?
+  1) Bas du fichier : « ===== CONFIGURATION ===== »
+     → numéro WhatsApp, téléphones, e-mail, logo, photos, liens.
+  2) Couleurs : juste en dessous, dans :root.
+  3) Textes à compléter : cherchez « À COMPLÉTER » dans le HTML.
+=====================================================================
+-->
+
+<style>
+/* ---------- COULEURS (provisoires, à remplacer par les couleurs officielles) ---------- */
+:root{
+  --navy:#102B55;
+  --navy-2:#1B3F7A;
+  --navy-dark:#0A1D3B;
+  --gold:#D5AD45;
+  --gold-2:#E8CB7A;
+  --white:#FFFFFF;
+  --bg:#F4F7FC;
+  --text:#1B2438;
+  --muted:#5A6479;
+  --radius:16px;
+  --shadow:0 10px 30px rgba(16,43,85,.12);
+  --font-title:Georgia,"Times New Roman",serif;
+  --font-body:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:72px}
+body{font-family:var(--font-body);color:var(--text);background:var(--white);line-height:1.65;font-size:16px;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+ul{list-style:none}
+.container{width:min(1140px,92%);margin-inline:auto}
+section{padding:72px 0}
+.alt{background:var(--bg)}
+h1,h2,h3{font-family:var(--font-title);line-height:1.2;color:var(--navy)}
+
+.section-head{text-align:center;max-width:700px;margin:0 auto 42px}
+.eyebrow{display:inline-block;color:#A8842A;font-weight:700;letter-spacing:.15em;text-transform:uppercase;font-size:.78rem;margin-bottom:8px}
+.section-head h2{font-size:clamp(1.7rem,5vw,2.4rem)}
+.section-head h2::after{content:"";display:block;width:60px;height:3px;background:var(--gold);margin:14px auto 0;border-radius:3px}
+.section-head p{color:var(--muted);margin-top:14px}
+.sub-title{font-size:1.35rem;margin-bottom:20px}
+
+/* Étiquette « Informations à compléter » */
+.todo{display:inline-block;font-size:.8rem;font-weight:600;color:#8A6A12;background:rgba(213,173,69,.16);border:1.5px dashed var(--gold);padding:3px 12px;border-radius:30px}
+.todo-box{border:2px dashed var(--gold);background:rgba(213,173,69,.07);border-radius:var(--radius);padding:20px;color:var(--muted);text-align:center}
+.todo-box b{display:block;color:var(--navy);font-family:var(--font-title);margin-bottom:4px}
+
+/* Boutons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:13px 26px;border-radius:50px;font-weight:600;font-size:1rem;border:2px solid transparent;cursor:pointer;transition:.3s;font-family:inherit}
+.btn-gold{background:var(--gold);color:var(--navy-dark)}
+.btn-gold:hover{background:var(--gold-2);transform:translateY(-2px);box-shadow:0 8px 20px rgba(213,173,69,.4)}
+.btn-outline{border-color:var(--white);color:var(--white)}
+.btn-outline:hover{background:var(--white);color:var(--navy);transform:translateY(-2px)}
+.btn-navy{background:var(--navy);color:var(--white)}
+.btn-navy:hover{background:var(--navy-2);transform:translateY(-2px)}
+.btn-wa{background:#25d366;color:#fff}
+.btn-wa:hover{background:#1ebe5a;transform:translateY(-2px)}
+
+.demo-bar{background:var(--gold);color:var(--navy-dark);text-align:center;font-size:.8rem;padding:6px 10px;font-weight:600}
+
+/* ---------- NAVIGATION ---------- */
+header{position:sticky;top:0;z-index:100;background:rgba(16,43,85,.97);backdrop-filter:blur(8px);box-shadow:0 2px 14px rgba(0,0,0,.2)}
+.nav{display:flex;align-items:center;justify-content:space-between;height:66px}
+.brand{display:flex;align-items:center;gap:10px;color:var(--white);font-family:var(--font-title);font-weight:700;font-size:1rem;letter-spacing:.02em}
+.logo{width:42px;height:42px;border-radius:50%;background:var(--white) center/contain no-repeat;border:2px dashed var(--gold);color:var(--navy);display:grid;place-items:center;font-weight:800;font-size:.62rem;text-align:center;line-height:1.05;flex-shrink:0}
+.logo.has-img{border:2px solid var(--gold)}
+.menu{display:flex;gap:2px}
+.menu a{color:#dfe6f5;padding:8px 11px;border-radius:30px;font-size:.88rem;transition:.25s;white-space:nowrap}
+.menu a:hover,.menu a.active{background:rgba(213,173,69,.18);color:var(--gold-2)}
+.burger{display:none;background:none;border:0;cursor:pointer;width:44px;height:44px;position:relative}
+.burger span{position:absolute;left:10px;right:10px;height:3px;background:var(--white);border-radius:3px;transition:.3s}
+.burger span:nth-child(1){top:14px}.burger span:nth-child(2){top:21px}.burger span:nth-child(3){top:28px}
+.burger.open span:nth-child(1){top:21px;transform:rotate(45deg)}
+.burger.open span:nth-child(2){opacity:0}
+.burger.open span:nth-child(3){top:21px;transform:rotate(-45deg)}
+@media(max-width:980px){
+  .burger{display:block}
+  .menu{position:fixed;top:66px;left:0;right:0;flex-direction:column;background:var(--navy);padding:14px 4% 22px;gap:2px;transform:translateY(-130%);transition:transform .35s ease;max-height:calc(100vh - 66px);overflow:auto;box-shadow:0 14px 24px rgba(0,0,0,.25)}
+  .menu.open{transform:translateY(0)}
+  .menu a{padding:14px 16px;font-size:1.05rem;border-radius:10px}
+}
+
+/* ---------- PHOTOS / EMPLACEMENTS ---------- */
+.photo{background-size:cover;background-position:center;background-repeat:no-repeat;position:relative;display:grid;place-items:center;overflow:hidden}
+.photo.has-img .ph-icon,.photo.has-img .ph-txt{display:none}
+.ph-icon{font-size:2.4rem}
+.ph-txt{font-size:.82rem;opacity:.9;text-align:center;padding:0 10px}
+.ph-1{background-image:linear-gradient(135deg,#0A1D3B,#2A5BAA)}
+.ph-2{background-image:linear-gradient(135deg,#102B55,#4A7FD0)}
+
+/* ---------- ACCUEIL ---------- */
+#accueil{padding:0;min-height:calc(100vh - 100px);display:flex;align-items:center;color:var(--white);position:relative;isolation:isolate}
+#accueil .hero-bg{position:absolute;inset:0;z-index:-2;background-size:cover;background-position:center;background-image:linear-gradient(135deg,#0A1D3B 0%,#102B55 55%,#1B3F7A 100%)}
+#accueil::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(10,29,59,.5),rgba(10,29,59,.85))}
+#accueil::after{content:"";position:absolute;right:-120px;top:-120px;width:380px;height:380px;border-radius:50%;border:2px solid rgba(213,173,69,.35);z-index:-1;animation:float 8s ease-in-out infinite}
+@keyframes float{50%{transform:translateY(24px)}}
+.hero{padding:80px 0;max-width:780px}
+.hero .tag{display:inline-block;border:1px solid var(--gold);color:var(--gold-2);padding:5px 16px;border-radius:30px;font-size:.82rem;letter-spacing:.1em;text-transform:uppercase;margin-bottom:20px}
+.hero h1{color:var(--white);font-size:clamp(2.1rem,8vw,4rem);margin-bottom:14px;letter-spacing:.02em}
+.hero h1 span{color:var(--gold-2)}
+.hero .place{color:var(--gold-2);font-family:var(--font-title);font-size:clamp(1rem,3.5vw,1.3rem);margin-bottom:10px}
+.hero .slogan{font-style:italic;color:#dbe3f3;margin-bottom:12px}
+.hero p.lead{color:#dbe3f3;margin-bottom:30px;max-width:600px}
+.hero .actions{display:flex;flex-wrap:wrap;gap:14px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:-50px;position:relative;z-index:2}
+.stat{background:var(--white);border-radius:var(--radius);padding:22px 10px;text-align:center;box-shadow:var(--shadow);border-bottom:3px solid var(--gold)}
+.stat b{display:block;font-family:var(--font-title);font-size:1.9rem;color:var(--navy)}
+.stat small{color:var(--muted)}
+@media(max-width:560px){.stats{margin-top:-36px;gap:8px}.stat{padding:16px 6px}.stat b{font-size:1.5rem}.stat small{font-size:.78rem}}
+
+/* ---------- PRÉSENTATION ---------- */
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:34px;align-items:center}
+.about-grid .photo{min-height:320px;border-radius:var(--radius);box-shadow:var(--shadow);border:4px solid var(--white);color:#fff;text-align:center}
+.facts{display:grid;gap:12px}
+.fact{display:flex;gap:14px;align-items:center;background:var(--white);padding:14px 18px;border-radius:14px;box-shadow:var(--shadow);border-left:4px solid var(--gold)}
+.fact .ico{font-size:1.5rem}
+.fact small{display:block;color:var(--muted);font-size:.78rem;text-transform:uppercase;letter-spacing:.08em}
+.fact b{color:var(--navy)}
+.cards-3{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:22px;margin-top:40px}
+.card{background:var(--white);border-radius:var(--radius);padding:26px;box-shadow:var(--shadow);transition:.3s;border-top:3px solid var(--gold)}
+.card:hover{transform:translateY(-6px)}
+.card .ico{font-size:1.9rem;margin-bottom:8px}
+.card h3{font-size:1.15rem;margin-bottom:10px}
+@media(max-width:860px){.about-grid{grid-template-columns:1fr}}
+
+/* ---------- CLASSES ET OPTIONS ---------- */
+.classes{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;margin-bottom:50px}
+.classe{background:var(--navy);color:var(--white);border-radius:var(--radius);padding:20px 8px;text-align:center;transition:.3s;border-bottom:3px solid var(--gold)}
+.classe:hover{transform:translateY(-5px);background:var(--navy-2)}
+.classe b{display:block;font-family:var(--font-title);font-size:1.8rem;color:var(--gold-2);line-height:1}
+.classe span{font-size:.85rem;color:#cdd7ee}
+@media(max-width:760px){.classes{grid-template-columns:repeat(3,1fr)}}
+.options{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px}
+.option{background:var(--white);border-radius:var(--radius);padding:26px 22px;box-shadow:var(--shadow);position:relative;overflow:hidden;transition:.35s;border:1px solid #e4e9f3}
+.option::before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;background:linear-gradient(var(--gold),var(--navy))}
+.option:hover{transform:translateY(-7px);box-shadow:0 18px 38px rgba(16,43,85,.2)}
+.option .num{position:absolute;right:14px;top:6px;font-family:var(--font-title);font-size:3rem;font-weight:700;color:rgba(16,43,85,.07)}
+.option .ico{width:56px;height:56px;border-radius:14px;background:var(--navy);display:grid;place-items:center;font-size:1.7rem;margin-bottom:14px;transition:.3s}
+.option:hover .ico{background:var(--gold);transform:rotate(-6deg) scale(1.06)}
+.option h3{font-size:1.15rem;margin-bottom:10px}
+
+/* ---------- VIE SCOLAIRE ---------- */
+.vie{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:22px}
+
+/* ---------- INSCRIPTIONS ---------- */
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:22px}
+.cta{margin-top:40px;text-align:center;background:linear-gradient(135deg,var(--navy),var(--navy-2));color:var(--white);padding:38px 22px;border-radius:var(--radius)}
+.cta h3{color:var(--white);margin-bottom:8px}
+.cta p{color:#cdd7ee;margin-bottom:20px}
+.cta .actions{display:flex;flex-wrap:wrap;gap:12px;justify-content:center}
+
+/* ---------- GALERIE ---------- */
+.gallery{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.gallery button{border:0;cursor:pointer;aspect-ratio:4/3;border-radius:14px;color:#fff;transition:.35s;font-family:inherit;border:2px dashed rgba(255,255,255,.45);background-color:#2a5baa}
+.gallery button.has-img{border:0}
+.gallery button:hover{transform:scale(1.04);box-shadow:var(--shadow)}
+.gallery button:nth-child(3n+1){background-image:linear-gradient(135deg,#0A1D3B,#2A5BAA)}
+.gallery button:nth-child(3n+2){background-image:linear-gradient(135deg,#102B55,#4A7FD0)}
+.gallery button:nth-child(3n){background-image:linear-gradient(135deg,#1B3F7A,#3B6FBF)}
+.gallery .cap{position:absolute;left:0;right:0;bottom:0;padding:20px 8px 7px;background:linear-gradient(transparent,rgba(0,0,0,.6));font-size:.8rem;text-align:left}
+@media(max-width:760px){.gallery{grid-template-columns:repeat(2,1fr)}}
+.lightbox{position:fixed;inset:0;background:rgba(5,12,32,.94);z-index:300;display:none;align-items:center;justify-content:center;padding:20px;flex-direction:column;gap:14px}
+.lightbox.show{display:flex}
+.lightbox .photo{width:min(900px,100%);aspect-ratio:4/3;max-height:72vh;border-radius:14px;color:#fff;background-color:#2a5baa}
+.lightbox p{color:#fff;text-align:center}
+.lb-btn{position:absolute;top:14px;right:14px;width:46px;height:46px;border-radius:50%;border:0;background:var(--gold);color:var(--navy-dark);font-size:1.5rem;cursor:pointer}
+.lb-nav{display:flex;gap:14px}
+.lb-nav button{background:rgba(255,255,255,.15);border:0;color:#fff;font-size:1.4rem;width:50px;height:50px;border-radius:50%;cursor:pointer}
+
+/* ---------- CONTACT ---------- */
+.contact-grid{display:grid;grid-template-columns:1fr 1.1fr;gap:30px}
+.info-item{display:flex;gap:14px;margin-bottom:18px;align-items:flex-start}
+.info-item .ico{width:46px;height:46px;border-radius:50%;background:var(--navy);color:var(--gold-2);display:grid;place-items:center;font-size:1.2rem;flex-shrink:0}
+.info-item h3{font-size:1rem;margin-bottom:2px}
+.info-item p,.info-item a.val{color:var(--muted);font-size:.95rem;display:block}
+.map-box{margin:22px 0 16px;border-radius:var(--radius);background:linear-gradient(135deg,#dfe7f7,#f3f6fc);padding:24px;text-align:center;box-shadow:var(--shadow)}
+.map-box p{color:var(--muted);margin-bottom:14px;font-size:.92rem}
+form{background:var(--white);padding:30px;border-radius:var(--radius);box-shadow:var(--shadow);border-top:3px solid var(--gold)}
+form h3{margin-bottom:16px}
+.field{margin-bottom:16px}
+label{display:block;font-weight:600;font-size:.9rem;margin-bottom:5px;color:var(--navy)}
+input,textarea,select{width:100%;padding:13px 14px;border:1.5px solid #d5dbe8;border-radius:10px;font-family:inherit;font-size:1rem;background:#fbfcfe;transition:.25s}
+input:focus,textarea:focus,select:focus{outline:0;border-color:var(--gold);box-shadow:0 0 0 3px rgba(213,173,69,.22)}
+textarea{min-height:120px;resize:vertical}
+.err{color:#c0392b;font-size:.8rem;min-height:1em;margin-top:3px;display:block}
+.field.invalid input,.field.invalid textarea,.field.invalid select{border-color:#c0392b}
+form .btn{width:100%}
+@media(max-width:860px){.contact-grid{grid-template-columns:1fr}}
+
+/* ---------- PIED DE PAGE ---------- */
+footer{background:var(--navy-dark);color:#cdd7ee;padding:52px 0 0}
+.foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:32px;padding-bottom:30px}
+footer h3{color:var(--gold-2);font-size:1.05rem;margin-bottom:12px}
+footer li{margin-bottom:8px}
+footer a:hover{color:var(--gold-2)}
+footer p{font-size:.92rem}
+.copy{border-top:1px solid rgba(255,255,255,.12);text-align:center;padding:18px 10px;font-size:.82rem;color:#8d9bbb}
+@media(max-width:760px){.foot-grid{grid-template-columns:1fr}}
+
+/* ---------- FLOTTANTS / MESSAGE ---------- */
+.float-wa{position:fixed;right:16px;bottom:18px;width:56px;height:56px;border-radius:50%;background:#25d366;color:#fff;display:grid;place-items:center;font-size:1.7rem;box-shadow:0 8px 20px rgba(0,0,0,.3);z-index:90;transition:.3s}
+.float-wa:hover{transform:scale(1.1)}
+.to-top{position:fixed;right:20px;bottom:90px;width:46px;height:46px;border-radius:50%;border:0;background:var(--gold);color:var(--navy-dark);font-size:1.3rem;font-weight:800;cursor:pointer;opacity:0;pointer-events:none;transition:.3s;z-index:90}
+.to-top.show{opacity:1;pointer-events:auto}
+.toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,120px);background:var(--navy);color:#fff;padding:14px 22px;border-radius:14px;border:1.5px solid var(--gold);z-index:400;max-width:92%;text-align:center;font-size:.92rem;transition:transform .4s ease;box-shadow:0 10px 28px rgba(0,0,0,.35)}
+.toast.show{transform:translate(-50%,0)}
+
+/* ---------- ANIMATIONS ---------- */
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s ease}
+.reveal.visible{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .reveal{opacity:1;transform:none;transition:none}
+  *{animation:none!important}
+}
+</style>
+</head>
+
+<body>
+
+<div class="demo-bar">Version de démonstration – les informations non fournies sont à compléter par l'établissement.</div>
+
+<!-- ======================= NAVIGATION ======================= -->
+<header>
+  <div class="container nav">
+    <a href="#accueil" class="brand">
+      <!-- LOGO OFFICIEL : voir LOGO dans CONFIGURATION -->
+      <span class="logo" id="logo">LOGO<br>ici</span>
+      <span>LA CONSCIENCE MKP</span>
+    </a>
+    <button class="burger" id="burger" aria-label="Ouvrir le menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    <nav class="menu" id="menu" aria-label="Navigation principale">
+      <a href="#accueil">Accueil</a>
+      <a href="#presentation">Présentation</a>
+      <a href="#options">Classes et options</a>
+      <a href="#vie">Vie scolaire</a>
+      <a href="#inscriptions">Inscriptions</a>
+      <a href="#galerie">Galerie</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+<!-- ======================= ACCUEIL ======================= -->
+<section id="accueil">
+  <div class="hero-bg" data-photo="hero"></div>
+  <div class="container">
+    <div class="hero">
+      <span class="tag">École secondaire</span>
+      <h1>LA CONSCIENCE <span>MKP</span></h1>
+      <p class="place">📍 Commune Annexe, quartier Kashamata</p>
+      <p class="slogan" id="slogan"></p>
+      <p class="lead">Une école secondaire qui propose six classes et neuf options pour accompagner les élèves dans leur parcours.</p>
+      <div class="actions">
+        <a href="#presentation" class="btn btn-gold">Découvrir notre école</a>
+        <a href="#contact" class="btn btn-outline">Nous contacter</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="container">
+  <div class="stats reveal">
+    <div class="stat"><b data-count="6">6</b><small>Classes</small></div>
+    <div class="stat"><b data-count="9">9</b><small>Options</small></div>
+    <div class="stat"><b>Secondaire</b><small>Niveau d'études</small></div>
+  </div>
+</div>
+
+<!-- ======================= PRÉSENTATION ======================= -->
+<section id="presentation">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Présentation</span>
+      <h2>Notre école</h2>
+      <p>Les informations essentielles sur l'établissement.</p>
+    </div>
+
+    <div class="about-grid reveal">
+      <div class="photo ph-1" data-photo="presentation"><div><div class="ph-icon">🏫</div><div class="ph-txt">Photo de l'école à ajouter</div></div></div>
+      <div class="facts">
+        <div class="fact"><span class="ico">🎓</span><div><small>Nom</small><b>LA CONSCIENCE MKP</b></div></div>
+        <div class="fact"><span class="ico">📚</span><div><small>Type d'établissement</small><b>École secondaire</b></div></div>
+        <div class="fact"><span class="ico">📍</span><div><small>Localisation</small><b>Commune Annexe, quartier Kashamata</b></div></div>
+        <div class="fact"><span class="ico">🏷️</span><div><small>Classes · Options</small><b>6 classes · 9 options</b></div></div>
+      </div>
+    </div>
+
+    <!-- À COMPLÉTER : histoire, mission, vision, valeurs, message de la direction -->
+    <div class="cards-3">
+      <div class="card reveal"><div class="ico">🕰️</div><h3>Histoire de l'école</h3><span class="todo">Informations à compléter</span></div>
+      <div class="card reveal"><div class="ico">🎯</div><h3>Mission et vision</h3><span class="todo">Informations à compléter</span></div>
+      <div class="card reveal"><div class="ico">⭐</div><h3>Valeurs</h3><span class="todo">Informations à compléter</span></div>
+      <div class="card reveal"><div class="ico">✍️</div><h3>Message de la direction</h3><span class="todo">Informations à compléter</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= CLASSES ET OPTIONS ======================= -->
+<section id="options" class="alt">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Classes et options</span>
+      <h2>Notre offre de formation</h2>
+      <p>Six classes et neuf options sont organisées dans l'établissement.</p>
+    </div>
+
+    <h3 class="sub-title reveal" style="text-align:center">Les classes</h3>
+    <div class="classes">
+      <div class="classe reveal"><b>7e</b><span>année</span></div>
+      <div class="classe reveal"><b>8e</b><span>année</span></div>
+      <div class="classe reveal"><b>1re</b><span>année</span></div>
+      <div class="classe reveal"><b>2e</b><span>année</span></div>
+      <div class="classe reveal"><b>3e</b><span>année</span></div>
+      <div class="classe reveal"><b>4e</b><span>année</span></div>
+    </div>
+
+    <h3 class="sub-title reveal" style="text-align:center">Les neuf options</h3>
+    <div class="options">
+      <div class="option reveal"><span class="num">01</span><div class="ico">📊</div><h3>Commerciale et Gestion</h3><span class="todo">Détails à compléter</span></div>
+      <div class="option reveal"><span class="num">02</span><div class="ico">🧑‍🏫</div><h3>Pédagogie générale</h3><span class="todo">Détails à compléter</span></div>
+      <div class="option reveal"><span class="num">03</span><div class="ico">🧪</div><h3>Biologie-Chimie</h3><span class="todo">Détails à compléter</span></div>
+      <div class="option reveal"><span class="num">04</span><div class="ico">💡</div><h3>Électricité</h3><span class="todo">Détails à compléter</span></div>
+      <div class="option reveal"><span class="num">05</span><div class="ico">📟</div><h3>Électronique</h3><span class="todo">Détails à compléter</span></div>
+      <div class="option reveal"><span class="num">06</span><div class="ico">⚙️</div><h3>Mécanique générale</h3><span class="todo">Détails à compléter</span></div>
+      <div class="option reveal"><span class="num">07</span><div class="ico">🚗</div><h3>Mécanique auto</h3><span class="todo">Détails à compléter</span></div>
+      <div class="option reveal"><span class="num">08</span><div class="ico">💻</div><h3>Informatique de gestion</h3><span class="todo">Détails à compléter</span></div>
+      <div class="option reveal"><span class="num">09</span><div class="ico">🧵</div><h3>Coupe et Couture</h3><span class="todo">Détails à compléter</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= VIE SCOLAIRE ======================= -->
+<section id="vie">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Vie scolaire</span>
+      <h2>La vie à l'école</h2>
+      <p>Cette section sera remplie avec les informations réelles de l'établissement.</p>
+    </div>
+    <!-- À COMPLÉTER : activités, événements, règlement, horaires -->
+    <div class="vie">
+      <div class="todo-box reveal"><b>🎭 Activités scolaires</b>Informations à compléter</div>
+      <div class="todo-box reveal"><b>📅 Événements</b>Informations à compléter</div>
+      <div class="todo-box reveal"><b>📋 Règlement et horaires</b>Informations à compléter</div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= INSCRIPTIONS ======================= -->
+<section id="inscriptions" class="alt">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Inscriptions</span>
+      <h2>Rejoindre l'école</h2>
+      <p>Les conditions et la procédure seront précisées par la direction.</p>
+    </div>
+    <!-- À COMPLÉTER : conditions, documents, procédure, frais, dates -->
+    <div class="steps">
+      <div class="todo-box reveal"><b>✅ Conditions d'admission</b>Informations à compléter</div>
+      <div class="todo-box reveal"><b>📄 Documents nécessaires</b>Informations à compléter</div>
+      <div class="todo-box reveal"><b>🧭 Procédure d'inscription</b>Informations à compléter</div>
+      <div class="todo-box reveal"><b>💰 Frais scolaires</b>Informations à compléter</div>
+    </div>
+    <div class="cta reveal">
+      <h3>Une question sur les inscriptions ?</h3>
+      <p>Contactez l'école pour obtenir les renseignements officiels.</p>
+      <div class="actions">
+        <a href="#contact" class="btn btn-gold">Nous contacter</a>
+        <a href="#" class="btn btn-wa" data-wa="Bonjour, je souhaite des renseignements sur les inscriptions à LA CONSCIENCE MKP.">💬 WhatsApp</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= GALERIE ======================= -->
+<section id="galerie">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Galerie photos</span>
+      <h2>L'école en images</h2>
+      <p>Les vraies photos de l'établissement seront ajoutées ici.</p>
+    </div>
+    <div class="gallery" id="gallery"></div>
+  </div>
+</section>
+
+<!-- ======================= CONTACT ======================= -->
+<section id="contact" class="alt">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Contact</span>
+      <h2>Nous contacter</h2>
+      <p>Écrivez-nous, nous vous répondrons dès que possible.</p>
+    </div>
+    <div class="contact-grid">
+      <div class="reveal">
+        <div class="info-item"><div class="ico">📍</div><div><h3>Adresse</h3><p>Commune Annexe, quartier Kashamata</p></div></div>
+        <div class="info-item"><div class="ico">📞</div><div><h3>Téléphone</h3><p id="telBox"></p></div></div>
+        <div class="info-item"><div class="ico">✉️</div><div><h3>E-mail</h3><p id="mailBox"></p></div></div>
+        <div class="info-item"><div class="ico">🕒</div><div><h3>Horaires</h3><p><span class="todo">Informations à compléter</span></p></div></div>
+
+        <div class="map-box">
+          <p>📍 Voir la zone sur Google Maps (recherche – position exacte à vérifier)</p>
+          <a id="mapLink" href="#" target="_blank" rel="noopener" class="btn btn-navy">Ouvrir Google Maps</a>
+        </div>
+        <a href="#" class="btn btn-wa" data-wa="Bonjour, j'aimerais avoir des informations sur LA CONSCIENCE MKP.">💬 Écrire sur WhatsApp</a>
+      </div>
+
+      <form id="contactForm" class="reveal" novalidate>
+        <h3>Envoyez-nous un message</h3>
+        <div class="field"><label for="f-nom">Nom complet *</label><input id="f-nom" name="nom" type="text" autocomplete="name" placeholder="Votre nom"><span class="err"></span></div>
+        <div class="field"><label for="f-tel">Téléphone *</label><input id="f-tel" name="tel" type="tel" autocomplete="tel" placeholder="Votre numéro"><span class="err"></span></div>
+        <div class="field"><label for="f-email">E-mail (facultatif)</label><input id="f-email" name="email" type="email" autocomplete="email" placeholder="exemple@mail.com"><span class="err"></span></div>
+        <div class="field"><label for="f-sujet">Sujet *</label>
+          <select id="f-sujet" name="sujet">
+            <option value="">-- Choisir --</option>
+            <option>Inscription</option>
+            <option>Informations sur les options</option>
+            <option>Rendez-vous avec la direction</option>
+            <option>Autre</option>
+          </select><span class="err"></span></div>
+        <div class="field"><label for="f-msg">Message *</label><textarea id="f-msg" name="msg" placeholder="Écrivez votre message ici..."></textarea><span class="err"></span></div>
+        <button type="submit" class="btn btn-gold">Envoyer par WhatsApp</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="container foot-grid">
+    <div>
+      <h3>LA CONSCIENCE MKP</h3>
+      <p>École secondaire</p>
+      <p>Commune Annexe, quartier Kashamata</p>
+    </div>
+    <div>
+      <h3>Liens rapides</h3>
+      <ul>
+        <li><a href="#presentation">Présentation</a></li>
+        <li><a href="#options">Classes et options</a></li>
+        <li><a href="#inscriptions">Inscriptions</a></li>
+        <li><a href="#galerie">Galerie</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3>Contact</h3>
+      <p id="footTel"></p>
+      <p id="footMail"></p>
+    </div>
+  </div>
+  <div class="copy">© <span id="year"></span> LA CONSCIENCE MKP – Site de démonstration, non officiel.</div>
+</footer>
+
+<a href="#" class="float-wa" data-wa="Bonjour, j'aimerais avoir des informations sur LA CONSCIENCE MKP." aria-label="WhatsApp">💬</a>
+<button class="to-top" id="toTop" aria-label="Retour en haut">↑</button>
+<div class="toast" id="toast" role="status"></div>
+
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Galerie photo">
+  <button class="lb-btn" id="lbClose" aria-label="Fermer">×</button>
+  <div class="photo" id="lbPhoto"><div><div class="ph-icon">📷</div><div class="ph-txt">Photo à ajouter</div></div></div>
+  <p id="lbCap"></p>
+  <div class="lb-nav"><button id="lbPrev" aria-label="Précédente">‹</button><button id="lbNext" aria-label="Suivante">›</button></div>
+</div>
+
+<script>
+/* =====================================================================
+   ===== CONFIGURATION ===== (modifiez ici, au fur et à mesure)
+   ===================================================================== */
+const ECOLE = {
+  // WhatsApp : format international, sans + ni espaces. Ex : 243XXXXXXXXX
+  // Laissez "" tant que le numéro n'est pas connu.
+  whatsapp: "",
+
+  // Téléphones (affichage) : ex "+243 000 000 000". Laissez "" si inconnu.
+  tel1: "",
+  tel2: "",
+
+  // E-mail officiel. Laissez "" si inconnu.
+  email: "",
+
+  // Slogan officiel (facultatif). Laissez "" si l'école n'en a pas.
+  slogan: "",
+
+  // Logo officiel : nom du fichier image, ex "logo.png" (même dossier que index.html). "" = emplacement vide.
+  logo: "",
+
+  // Recherche Google Maps (à remplacer par le lien exact de l'école quand il sera connu).
+  maps: "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent("LA CONSCIENCE MKP, Kashamata, Commune Annexe")
+};
+
+// GALERIE : ajoutez les vraies photos ici. Une ligne par photo.
+// Exemple : { src: "photos/classe1.jpg", legende: "Salle de classe" }
+// Laissez src: "" pour garder un emplacement vide.
+const GALERIE = [
+  { src: "", legende: "Photo à ajouter" },
+  { src: "", legende: "Photo à ajouter" },
+  { src: "", legende: "Photo à ajouter" },
+  { src: "", legende: "Photo à ajouter" },
+  { src: "", legende: "Photo à ajouter" },
+  { src: "", legende: "Photo à ajouter" },
+  { src: "", legende: "Photo à ajouter" },
+  { src: "", legende: "Photo à ajouter" }
+];
+
+// Photos de présentation (facultatives)
+const PHOTOS = {
+  hero: "",          // grande image de l'accueil
+  presentation: ""   // photo de l'école dans « Présentation »
+};
+/* ===================== FIN DE LA CONFIGURATION ===================== */
+
+
+/* ---------- Petits utilitaires ---------- */
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+const TODO = '<span class="todo">Informations à compléter</span>';
+const toast = $("#toast");
+let toastTimer;
+function showToast(msg) {
+  toast.textContent = msg;
+  toast.classList.add("show");
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => toast.classList.remove("show"), 3800);
+}
+
+/* ---------- Informations de contact ---------- */
+$("#year").textContent = new Date().getFullYear();
+const phones = [ECOLE.tel1, ECOLE.tel2].filter(Boolean);
+$("#telBox").innerHTML = phones.length
+  ? phones.map(t => `<a class="val" href="tel:${t.replace(/\s/g, "")}">${t}</a>`).join("")
+  : TODO;
+$("#mailBox").innerHTML = ECOLE.email ? `<a class="val" href="mailto:${ECOLE.email}">${ECOLE.email}</a>` : TODO;
+$("#footTel").textContent = phones.length ? "📞 " + phones.join(" / ") : "📞 Téléphone : à compléter";
+$("#footMail").textContent = ECOLE.email ? "✉️ " + ECOLE.email : "✉️ E-mail : à compléter";
+$("#mapLink").href = ECOLE.maps;
+if (ECOLE.slogan) $("#slogan").textContent = ECOLE.slogan;
+
+/* ---------- Logo ---------- */
+if (ECOLE.logo) {
+  const l = $("#logo");
+  l.style.backgroundImage = `url("${ECOLE.logo}")`;
+  l.textContent = "";
+  l.classList.add("has-img");
+}
+
+/* ---------- Photos de présentation ---------- */
+$$("[data-photo]").forEach(el => {
+  const url = PHOTOS[el.dataset.photo];
+  if (url) { el.style.backgroundImage = `url("${url}")`; el.classList.add("has-img"); }
+});
+
+/* ---------- WhatsApp (numéro en attente géré proprement) ---------- */
+const waLink = msg => "https://wa.me/" + ECOLE.whatsapp + "?text=" + encodeURIComponent(msg);
+$$("[data-wa]").forEach(a => {
+  a.addEventListener("click", e => {
+    e.preventDefault();
+    if (!ECOLE.whatsapp) { showToast("Numéro WhatsApp en attente : à renseigner dans la configuration."); return; }
+    window.open(waLink(a.dataset.wa), "_blank", "noopener");
+  });
+});
+
+/* ---------- Menu mobile ---------- */
+const burger = $("#burger"), menu = $("#menu");
+const closeMenu = () => { menu.classList.remove("open"); burger.classList.remove("open"); burger.setAttribute("aria-expanded", "false"); };
+burger.addEventListener("click", () => {
+  const open = menu.classList.toggle("open");
+  burger.classList.toggle("open", open);
+  burger.setAttribute("aria-expanded", open);
+});
+$$("a", menu).forEach(a => a.addEventListener("click", closeMenu));
+document.addEventListener("click", e => { if (!menu.contains(e.target) && !burger.contains(e.target)) closeMenu(); });
+
+/* ---------- Lien actif ---------- */
+const links = $$("a", menu);
+const spy = new IntersectionObserver(entries => {
+  entries.forEach(en => {
+    if (en.isIntersecting) links.forEach(l => l.classList.toggle("active", l.getAttribute("href") === "#" + en.target.id));
+  });
+}, { rootMargin: "-45% 0px -50% 0px" });
+links.forEach(a => { const s = $(a.getAttribute("href")); if (s) spy.observe(s); });
+
+/* ---------- Apparition au défilement ---------- */
+if ("IntersectionObserver" in window) {
+  const io = new IntersectionObserver((entries, obs) => {
+    entries.forEach(en => { if (en.isIntersecting) { en.target.classList.add("visible"); obs.unobserve(en.target); } });
+  }, { threshold: .12 });
+  $$(".reveal").forEach(el => io.observe(el));
+} else {
+  $$(".reveal").forEach(el => el.classList.add("visible"));
+}
+
+/* ---------- Retour en haut ---------- */
+const toTop = $("#toTop");
+window.addEventListener("scroll", () => toTop.classList.toggle("show", window.scrollY > 500), { passive: true });
+toTop.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
+
+/* ---------- Galerie construite depuis GALERIE ---------- */
+const gal = $("#gallery");
+GALERIE.forEach((g, i) => {
+  const b = document.createElement("button");
+  b.className = "photo reveal";
+  b.type = "button";
+  b.setAttribute("aria-label", g.legende || "Photo " + (i + 1));
+  if (g.src) { b.style.backgroundImage = `url("${g.src}")`; b.classList.add("has-img"); b.innerHTML = `<span class="cap">${g.legende || ""}</span>`; }
+  else { b.innerHTML = `<span class="ph-icon">📷</span><span class="cap">${g.legende || "Photo à ajouter"}</span>`; }
+  gal.appendChild(b);
+});
+const lb = $("#lightbox"), lbPhoto = $("#lbPhoto"), lbCap = $("#lbCap");
+let cur = 0;
+function showItem(i) {
+  cur = (i + GALERIE.length) % GALERIE.length;
+  const g = GALERIE[cur];
+  lbPhoto.classList.toggle("has-img", !!g.src);
+  lbPhoto.style.backgroundImage = g.src ? `url("${g.src}")` : "";
+  lbCap.textContent = g.src ? (g.legende || "") : "Photo à ajouter";
+}
+$$("#gallery button").forEach((b, i) => b.addEventListener("click", () => { showItem(i); lb.classList.add("show"); document.body.style.overflow = "hidden"; }));
+const closeLb = () => { lb.classList.remove("show"); document.body.style.overflow = ""; };
+$("#lbClose").addEventListener("click", closeLb);
+$("#lbPrev").addEventListener("click", () => showItem(cur - 1));
+$("#lbNext").addEventListener("click", () => showItem(cur + 1));
+lb.addEventListener("click", e => { if (e.target === lb) closeLb(); });
+document.addEventListener("keydown", e => {
+  if (!lb.classList.contains("show")) return;
+  if (e.key === "Escape") closeLb();
+  if (e.key === "ArrowLeft") showItem(cur - 1);
+  if (e.key === "ArrowRight") showItem(cur + 1);
+});
+
+/* ---------- Formulaire avec validation ---------- */
+const form = $("#contactForm");
+const setError = (input, msg) => {
+  const f = input.closest(".field");
+  f.classList.toggle("invalid", !!msg);
+  $(".err", f).textContent = msg || "";
+  return !msg;
+};
+const rules = {
+  nom:   v => v.trim().length < 3 ? "Entrez votre nom complet (3 lettres minimum)." : "",
+  tel:   v => !/^[+\d][\d\s().-]{6,19}$/.test(v.trim()) ? "Entrez un numéro de téléphone valide." : "",
+  email: v => v.trim() && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim()) ? "Adresse e-mail invalide." : "",
+  sujet: v => !v ? "Choisissez un sujet." : "",
+  msg:   v => v.trim().length < 10 ? "Message trop court (10 caractères minimum)." : ""
+};
+Object.keys(rules).forEach(n => {
+  const input = form.elements[n];
+  input.addEventListener("blur", () => setError(input, rules[n](input.value)));
+  input.addEventListener("input", () => { if (input.closest(".field").classList.contains("invalid")) setError(input, rules[n](input.value)); });
+});
+form.addEventListener("submit", e => {
+  e.preventDefault();
+  let ok = true;
+  Object.keys(rules).forEach(n => { if (!setError(form.elements[n], rules[n](form.elements[n].value))) ok = false; });
+  if (!ok) { $(".invalid input, .invalid textarea, .invalid select", form)?.focus(); return; }
+  if (!ECOLE.whatsapp) { showToast("Formulaire valide ✔ — numéro WhatsApp en attente, envoi impossible pour le moment."); return; }
+  const f = form.elements;
+  const texte = `Bonjour, je suis ${f.nom.value.trim()}.\nSujet : ${f.sujet.value}\nTéléphone : ${f.tel.value.trim()}` +
+    (f.email.value.trim() ? `\nE-mail : ${f.email.value.trim()}` : "") + `\n\n${f.msg.value.trim()}`;
+  window.open(waLink(texte), "_blank", "noopener");
+  form.reset();
+  showToast("WhatsApp s'ouvre avec votre message prêt à envoyer.");
+});
+</script>
+</body>
+</html>
